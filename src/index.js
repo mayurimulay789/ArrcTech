@@ -55,7 +55,13 @@ const { connectDB } = require('../config/db');
 const purchaseRoutes = require('../routes/PurchaseRoutes');
 const tableRoute = require('../routes/tableRoute');
 const foodItemRoutes = require('../routes/foodItem');
-const foodGroupRoutes =require('../routes/FoodGroup')
+const foodGroupRoutes =require('../routes/FoodGroup');
+const modifierRoutes=require('../routes/Modifiers');
+const ingredientRoutes = require('../routes/IngredientRoutes');
+const accountRoutes = require('../routes/accountRoute');
+const depositRoutes = require('../routes/depositRoutes');
+const transferRoutes = require('../routes/transferRoutes');
+
 const path = require('path');
 
 // Load environment variables from .env file
@@ -81,6 +87,12 @@ app.use('/api', purchaseRoutes);
 app.use('/api/tables', tableRoute);
 app.use('/api/foodItems', foodItemRoutes); // Ensure route is correctly defined
 app.use('/api/foodgroups',foodGroupRoutes)
+app.use('/api', modifierRoutes);
+app.use('/api/ingredients', ingredientRoutes);
+app.use('/api/accounts', accountRoutes);
+app.use('/api/deposits', depositRoutes);
+app.use('/api/transfers', transferRoutes);
+
 // Catch-all route to handle undefined routes
 app.use((req, res) => {
     res.status(404).json({ error: 'Not Found' });
