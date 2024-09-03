@@ -1,4 +1,4 @@
-const Table = require('../models/table');
+const Table = require('../models/Table');
 
 // Get all tables
 const getAllTables = async (req, res) => {
