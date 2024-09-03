@@ -59,18 +59,20 @@ const updateFoodItem = async (req, res) => {
     };
 
     if (req.file) {
-      updateData.image = req.file.location; // URL of the updated image from S3
+      updateData.image = req.file.location; // Handle image upload
     }
 
-    const updatedItem = await FoodItem.findByIdAndUpdate(req.params.id, updateData, { new: true });
-    if (!updatedItem) {
+    const foodItem = await FoodItem.findByIdAndUpdate(req.params.id, updateData, { new: true });
+    if (!foodItem) {
       return res.status(404).json({ message: 'Food item not found' });
     }
-    res.status(200).json(updatedItem);
+
+    res.status(200).json(foodItem);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update food item' });
+    res.status(500).json({ error: `Failed to update food item: ${error.message}` });
   }
 };
+
 
 // Delete a food item by ID
 const deleteFoodItem = async (req, res) => {
