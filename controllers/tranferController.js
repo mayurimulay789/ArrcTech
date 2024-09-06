@@ -1,4 +1,4 @@
-const Transfer = require('../models/Transfer');
+const Transfer = require('../models/Transfers');
 
 // Get all transfers
 exports.getAllTransfers = async (req, res) => {
