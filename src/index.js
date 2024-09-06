@@ -5,7 +5,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const { connectDB } = require('../config/db');
 const purchaseRoutes = require('../routes/PurchaseRoutes');
-const tableRoute = require('../routes/tableRoute');
+const tableRoutes = require('../routes/tableRoute');
 const foodItemRoutes = require('../routes/foodItem');
 const foodGroupRoutes =require('../routes/FoodGroup');
 const modifierRoutes=require('../routes/Modifiers');
@@ -53,7 +53,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 app.use('/api', purchaseRoutes);
-app.use('/api/tables', tableRoute);
+app.use('/api/tables', tableRoutes);
 app.use('/api/foodItems', foodItemRoutes); // Ensure route is correctly defined
 app.use('/api/foodgroups',foodGroupRoutes)
 app.use('/api', modifierRoutes);
