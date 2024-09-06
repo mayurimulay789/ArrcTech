@@ -29,6 +29,7 @@ const discountRoutes = require('../routes/discountRoute');
 const chargeRoutes = require('../routes/chargesRoutes');
 const companyRoutes = require('../routes/companyRoutes');
 const authRoutes = require('../routes/authRoutes');
+const settingsRoutes = require('../routes/settingRoute');
 
 const path = require('path');
 
@@ -76,6 +77,7 @@ app.use('/api/discounts', discountRoutes);
 app.use('/api/charges', chargeRoutes);
 app.use('/api', companyRoutes);
 app.use('/api', authRoutes);
+app.use('/api', settingsRoutes);
 
 
 // Catch-all route to handle undefined routes
