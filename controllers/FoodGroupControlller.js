@@ -1,4 +1,4 @@
-const FoodGroup = require("../models/foodGroup");
+const FoodGroup = require("../models/FoodGroups");
 
 // Create a new food group
 exports.createFoodGroup = async (req, res) => {
