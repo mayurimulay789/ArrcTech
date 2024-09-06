@@ -92,7 +92,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-app.listen(port, hostname, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`Server is running at http://${hostname}:${port}`);
 });
 
