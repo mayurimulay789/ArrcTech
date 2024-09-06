@@ -1,4 +1,4 @@
-const Designation = require('../models/Designation');
+const Designation = require('../models/Designations');
 
 exports.getDesignations = async (req, res) => {
   const { page = 1, limit = 10, search = '' } = req.query;

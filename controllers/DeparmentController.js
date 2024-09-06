@@ -1,5 +1,5 @@
 // controllers/departmentController.js
-const Department = require('../models/Department');
+const Department = require('../models/Departments');
 
 // Get all departments with pagination and search
 exports.getDepartments = async (req, res) => {

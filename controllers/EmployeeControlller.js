@@ -1,7 +1,7 @@
 const { S3Client } = require('@aws-sdk/client-s3');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-const Employee = require('../models/Employee');
+const Employee = require('../models/Employees');
 const { v4: uuidv4 } = require('uuid');
 
 // Create an S3 client instance

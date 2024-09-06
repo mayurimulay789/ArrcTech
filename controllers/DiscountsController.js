@@ -1,4 +1,4 @@
-const Discount = require('../models/Discount');
+const Discount = require('../models/Discounts');
 
 // Get all discounts
 exports.getDiscounts = async (req, res) => {

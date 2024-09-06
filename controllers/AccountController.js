@@ -1,4 +1,4 @@
-const Account = require('../models/Account');
+const Account = require('../models/Accounts');
 
 // Fetch accounts with pagination
 exports.getAccounts = async (req, res) => {
