@@ -1,62 +1,55 @@
-const Invoice = require('../models/Purchase'); // Adjust the path as needed
+// controllers/purchaseController.js
+const Purchase = require('../models/Purchase');
 
-// Create a new invoice
-exports.createInvoice = async (req, res) => {
+// Get all purchases
+exports.getAllPurchases = async (req, res) => {
   try {
-    const invoice = new Invoice(req.body);
-    await invoice.save();
-    res.status(201).json(invoice);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+    const purchases = await Purchase.find();
+    res.json(purchases);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 
-// Get all invoices
-exports.getAllInvoices = async (req, res) => {
+// Add a new purchase
+exports.addPurchase = async (req, res) => {
+  const { supplierId, invoiceNo, totalBill, paidAmount, dueAmount, purchaseDate, updatedBy } = req.body;
+  const newPurchase = new Purchase({
+    supplierId,
+    invoiceNo,
+    totalBill,
+    paidAmount,
+    dueAmount,
+    purchaseDate,
+    updatedBy
+  });
+
   try {
-    const invoices = await Invoice.find();
-    res.status(200).json(invoices);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    const savedPurchase = await newPurchase.save();
+    res.status(201).json(savedPurchase);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 };
 
-// Get a single invoice by ID
-exports.getInvoiceById = async (req, res) => {
+// Update a purchase
+exports.updatePurchase = async (req, res) => {
   try {
-    const invoice = await Invoice.findById(req.params.id);
-    if (!invoice) {
-      return res.status(404).json({ error: 'Invoice not found' });
-    }
-    res.status(200).json(invoice);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    const purchase = await Purchase.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!purchase) return res.status(404).json({ message: 'Purchase not found' });
+    res.json(purchase);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 };
 
-// Update an invoice by ID
-exports.updateInvoice = async (req, res) => {
+// Delete a purchase
+exports.deletePurchase = async (req, res) => {
   try {
-    const invoice = await Invoice.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!invoice) {
-      return res.status(404).json({ error: 'Invoice not found' });
-    }
-    res.status(200).json(invoice);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+    const purchase = await Purchase.findByIdAndDelete(req.params.id);
+    if (!purchase) return res.status(404).json({ message: 'Purchase not found' });
+    res.json({ message: 'Purchase deleted' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
-
-// Delete an invoice by ID
-exports.deleteInvoice = async (req, res) => {
-  try {
-    const invoice = await Invoice.findByIdAndDelete(req.params.id);
-    if (!invoice) {
-      return res.status(404).json({ error: 'Invoice not found' });
-    }
-    res.status(200).json({ message: 'Invoice deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-

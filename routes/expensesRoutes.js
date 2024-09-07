@@ -1,12 +1,11 @@
-// routes/expenseRoutes.js
 const express = require('express');
-const { getExpenses, createExpense, updateExpense, deleteExpense } = require('../controllers/ExpensesController');
-
 const router = express.Router();
+const expenseController = require('../controllers/ExpensesController');
 
-router.get('/', getExpenses);
-router.post('/', createExpense);
-router.put('/:id', updateExpense);
-router.delete('/:id', deleteExpense);
+router.get('/', expenseController.getExpenses);
+router.get('/:id', expenseController.getExpenseById);
+router.post('/', expenseController.createExpense);
+router.put('/:id', expenseController.updateExpense);
+router.delete('/:id', expenseController.deleteExpense);
 
 module.exports = router;

@@ -1,15 +1,11 @@
+// routes/purchaseRoutes.js
 const express = require('express');
 const router = express.Router();
-const purchaseControllers = require('../controllers/purchaseControllers.js'); // Adjust the path as needed
+const purchaseController = require('../controllers/purchaseControllers.js');
 
-// Define routes
-router.post('/invoices', purchaseControllers.createInvoice);
-router.get('/invoices', purchaseControllers.getAllInvoices);
-router.get('/invoices/:id', purchaseControllers.getInvoiceById);
-router.put('/invoices/:id', purchaseControllers.updateInvoice);
-router.delete('/invoices/:id', purchaseControllers.deleteInvoice);
+router.get('/', purchaseController.getAllPurchases);
+router.post('/', purchaseController.addPurchase);
+router.put('/:id', purchaseController.updatePurchase);
+router.delete('/:id', purchaseController.deletePurchase);
 
 module.exports = router;
-
-
-

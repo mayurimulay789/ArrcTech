@@ -1,56 +1,55 @@
-// controllers/expenseController.js
 const Expense = require('../models/Expenses');
 
+// Get all expenses
 exports.getExpenses = async (req, res) => {
   try {
     const expenses = await Expense.find().populate('account');
-    res.status(200).json(expenses);
+    res.json({ expenses });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: 'Server Error' });
   }
 };
 
+// Get expense by ID
+exports.getExpenseById = async (req, res) => {
+  try {
+    const expense = await Expense.findById(req.params.id).populate('account');
+    if (!expense) return res.status(404).json({ message: 'Expense not found' });
+    res.json({ expense });
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+// Create a new expense
 exports.createExpense = async (req, res) => {
-  const { account, date, amount, note } = req.body;
-
   try {
-    const newExpense = new Expense({ account, date, amount, note });
+    const newExpense = new Expense(req.body);
     await newExpense.save();
-    res.status(201).json(newExpense);
+    res.status(201).json({ message: 'Expense created successfully', expense: newExpense });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ message: 'Bad Request' });
   }
 };
 
+// Update an expense
 exports.updateExpense = async (req, res) => {
-  const { id } = req.params;
-  const { account, date, amount, note } = req.body;
-
   try {
-    const updatedExpense = await Expense.findByIdAndUpdate(
-      id,
-      { account, date, amount, note },
-      { new: true }
-    );
-
-    if (!updatedExpense) return res.status(404).json({ message: 'Expense not found' });
-
-    res.status(200).json(updatedExpense);
+    const expense = await Expense.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!expense) return res.status(404).json({ message: 'Expense not found' });
+    res.json({ message: 'Expense updated successfully', expense });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ message: 'Bad Request' });
   }
 };
 
+// Delete an expense
 exports.deleteExpense = async (req, res) => {
-  const { id } = req.params;
-
   try {
-    const deletedExpense = await Expense.findByIdAndDelete(id);
-
-    if (!deletedExpense) return res.status(404).json({ message: 'Expense not found' });
-
-    res.status(200).json({ message: 'Expense deleted' });
+    const expense = await Expense.findByIdAndDelete(req.params.id);
+    if (!expense) return res.status(404).json({ message: 'Expense not found' });
+    res.json({ message: 'Expense deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: 'Server Error' });
   }
 };
